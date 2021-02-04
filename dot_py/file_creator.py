@@ -7,7 +7,7 @@ def create_files():
     file_name = input("File name: ")
     extension = input("Save as type: ")
     quantity = int(input("Number of copies: "))
-    if quantity == 0:
+    if quantity <= 0:
         exit(1)
     a = 1
     b = quantity + 1
