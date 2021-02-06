@@ -25,7 +25,5 @@
     * number/total(left)
 
 ## Algos
-* Create an algorithm that prints the date of each class from the start of 
-a semester to the end of the semester.
-    * e.g. if a class meets M W F what are the dates in(M/D/Y) for each day the
-      class meets.
+* Create an algorithm that prints the date in (00-00-0000) for selected days
+of the week, beginning at the start date and ending at the end date of choice.
