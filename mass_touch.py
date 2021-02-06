@@ -29,8 +29,10 @@ def create_files():
         fill = 1
     elif quantity >= 10 and quantity < 100:
         fill = 2
-    elif quantity >= 100:
+    elif quantity >= 100 and quantity < 1000:
         fill = 3
+    elif quantity >= 1000:
+        fill = 4
     else:
         fill = 1
 
