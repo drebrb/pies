@@ -4,6 +4,7 @@
 
 import os
 import touch
+from tqdm import trange
 
 def create_files():
     file_name = input("File name: ")
@@ -31,12 +32,16 @@ def create_files():
         fill = 2
     elif quantity >= 100 and quantity < 1000:
         fill = 3
-    elif quantity >= 1000:
+    elif quantity >= 1000 and quantity < 10000:
         fill = 4
+    elif quantity >= 10000 and quantity < 100000:
+        fill = 5
+    elif quantity >= 100000:
+        fill = 6
     else:
         fill = 1
 
-    for i in range(a, b):
+    for i in trange(a, b):
         touch.touch(file_name + str(i).zfill(fill) + "." + extension)
 
 if __name__ == '__main__':
