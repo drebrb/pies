@@ -26,7 +26,7 @@ def create_files():
     if quantity == 1:
         touch.touch(file_name + "." + extension)
         exit(0)
-    elif quantity < 10:
+    elif quantity > 1 and quantity < 10:
         fill = 1
     elif quantity >= 10 and quantity < 100:
         fill = 2
