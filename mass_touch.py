@@ -5,6 +5,9 @@
 import os
 import touch
 from tqdm import trange
+from datetime import datetime
+import calendar
+import numpy as np
 
 class masstouch():
     def create_files():
@@ -41,7 +44,27 @@ class masstouch():
                     touch.touch(file_name + " " + "(" + chr(i) + ")" + "." + file_type)
                 break
             elif sort_type in('d', 'D'):
-                print("Option to sort by date coming soon.")
+                year = datetime.now().year
+
+                print("*************************************************************************")
+                print(calendar.calendar(year))
+                print("*************************************************************************")
+
+                start = np.datetime64(input("Start date(YYYY-MM-DD): "))
+                end = np.datetime64(input("End   date(YYYY-MM-DD): "))
+                day = input("Days  Su|M|T|W|Th|F|Sa: ") 
+
+                def monday():
+                    first_monday = np.busday_offset(start, 0, roll='forward', weekmask='Mon')
+                    last_monday = np.busday_offset(end, 0, roll='forward', weekmask='Mon')
+                    delta = np.busday_count(first_monday, last_monday, weekmask='Mon') 
+
+                    for i in trange(delta):
+                        touch.touch(file_name + " " + str(first_monday) + "." + file_type)
+                        first_monday += np.timedelta64(7, 'D')
+
+                if day in('m', 'M', 'Mon', 'mon', 'monday', 'Monday'):
+                    monday()
                 break
             else:
                 print("'" + sort_type + "'", "is not a valid option.")
