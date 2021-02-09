@@ -5,15 +5,15 @@
 import os
 from tqdm import trange
 import touch
-from datetime import datetime
 import calendar
+from datetime import datetime
 import numpy as np
 
-def run():
-    if os.name == 'nt':
-        import winshell
-        os.chdir(winshell.desktop()) 
+if os.name == 'nt':
+    import winshell
+    os.chdir(winshell.desktop())
 
+def run():
     file_name = input("File name: ")
     file_type = input("Save as type: ")
 
@@ -30,7 +30,7 @@ def run():
         print("          *********************************************** ")
         print("Options: | Numerical(n) | Alphabetical(a) | Date(d)      |")
         print("         | ------------ | --------------- | ------------ |")
-        print("E.g.     | (0 - 'inf')  | (A - Z)         | (YYYY-MM-DD) |")
+        print("E.g.     | (*int, *int) | (A, Z)          | (YYYY-MM-DD) |")
         print("         |                                               |")
         print("          *********************************************** ")
         print()
@@ -53,11 +53,9 @@ def run():
             break
 
         if option in('d', 'D', 'Date', 'date'):
-            year = datetime.now().year
-
             print()
             print("************************************************************************")
-            print(calendar.calendar(year))
+            print(calendar.calendar(datetime.now().year))
             print("************************************************************************")
             print()
 
