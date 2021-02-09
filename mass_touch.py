@@ -3,23 +3,21 @@
 # https://github.com/drebrb/masstouch
 
 import os
-#import winshell
-import touch
 from tqdm import trange
+import touch
 from datetime import datetime
 import calendar
 import numpy as np
 
 def run():
+    if os.name == 'nt':
+        import winshell
+        os.chdir(winshell.desktop()) 
+
     file_name = input("File name: ")
     file_type = input("Save as type: ")
 
-    if os.name == 'nt':
-        user_desktop = winshell.desktop()
-        os.chdir(user_desktop)
-
-    cwd = os.getcwd()
-    response = input("Save to " + "'" + cwd + "'" + "? [Y/n]: ")
+    response = input("Save to " + "'" + os.getcwd() + "'" + "? [Y/n]: ")
 
     if response in('n', 'N', 'no', 'No', 'NO', 'nO'):
         save_path = input("Save to: ")
