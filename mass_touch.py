@@ -47,7 +47,7 @@ def run():
             end = int(input("End with: "))
 
             for i in trange(start, end + 1):
-                touch.touch(file_name + "(" + str(i) + ")" + "." + file_type)
+                touch.touch(file_name + " " + "(" + str(i) + ")" + "." + file_type)
 
             break
  
@@ -56,7 +56,7 @@ def run():
             end = input("End with: ")
 
             for i in trange(ord(start), ord(end) + 1):
-                touch.touch(file_name + "(" + chr(i) + ")" + "." + file_type)
+                touch.touch(file_name + " " + "(" + chr(i) + ")" + "." + file_type)
  
             break
 
@@ -87,7 +87,7 @@ def run():
             count = np.busday_count(first_day, last_day, weekmask=mask)
  
             for i in trange(count + 1):
-                touch.touch(file_name + str(first_day) + "." + file_type)
+                touch.touch(file_name + " " + str(first_day) + "." + file_type)
                 first_day += np.timedelta64(7, 'D')
  
             break
