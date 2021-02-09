@@ -29,19 +29,38 @@ install() {
         if cp mass_touch.py /usr/local/bin
         then
             Installation_Complete
+            exit 0
         else
             Error
+            exit 1
         fi
     else
         printf '%s\n' "'usr/local/bin' does not exist."
         printf '%s' "Do you want to create it? [Y/n] "
         read -r input
         case $input in
-            y|Y|[yY][eE][sS]) mkdir -p /usr/local/bin 
+            y|Y|[yY][eE][sS]) mkdir_install
                 ;;
             *) printf '%s\n' "Abort"
                 exit 1
         esac
+    fi
+}
+
+mkdir_install() {
+    if mkdir -p /usr/local/bin
+    then
+        if cp mass_touch,py /usr/local/bin
+        then
+            Installation_Complete
+            exit 0
+        else
+            Error
+            exit 1
+        fi
+    else
+        Error
+        exit 1
     fi
 }
 
