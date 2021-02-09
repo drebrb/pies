@@ -23,17 +23,18 @@ def run():
         save_path = input("Save to: ")
         os.chdir(save_path)
 
+    print()
+    print("Create files in one of the following ways..")
+    print()
+    print("          *********************************************** ")
+    print("Options: | Numerical(n) | Alphabetical(a) | Date(d)      |")
+    print("         | ------------ | --------------- | ------------ |")
+    print("E.g.     | (*int, *int) | (A, Z)          | (YYYY-MM-DD) |")
+    print("         |                                               |")
+    print("          *********************************************** ")
+    print()
+
     while True:
-        print()
-        print("Create files in one of the following ways..")
-        print()
-        print("          *********************************************** ")
-        print("Options: | Numerical(n) | Alphabetical(a) | Date(d)      |")
-        print("         | ------------ | --------------- | ------------ |")
-        print("E.g.     | (*int, *int) | (A, Z)          | (YYYY-MM-DD) |")
-        print("         |                                               |")
-        print("          *********************************************** ")
-        print()
         option = input("Enter option: ")
 
         if option in('n', 'N', 'Numerical', 'numerical'):
