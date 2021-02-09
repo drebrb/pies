@@ -80,11 +80,12 @@ def run():
             print("               |                                                           |")
             print("                *********************************************************** ")
             print()
-            mask = input("..: ")
+
+            day = input("..: ")
  
-            first_day = np.busday_offset(start, 0, roll='forward', weekmask=mask)
-            last_day = np.busday_offset(end, 0, roll='preceding', weekmask=mask)
-            count = np.busday_count(first_day, last_day, weekmask=mask)
+            first_day = np.busday_offset(start, 0, roll='forward', weekmask=day)
+            last_day = np.busday_offset(end, 0, roll='preceding', weekmask=day)
+            count = np.busday_count(first_day, last_day, weekmask=day)
  
             for i in trange(count + 1):
                 touch.touch(file_name + " " + str(first_day) + "." + file_type)
