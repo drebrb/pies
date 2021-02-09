@@ -3,77 +3,100 @@
 # https://github.com/drebrb/masstouch
 
 import os
+#import winshell
 import touch
 from tqdm import trange
 from datetime import datetime
 import calendar
 import numpy as np
 
-class masstouch():
-    def create_files():
-        file_name = input("File name: ")
-        file_type = input("Save as type: ")
-        cwd = os.getcwd()
-        print("Save to...?")
-        print("'" + cwd + "'", end= " ")
-        response = input("[Y/n]: ")
-        if response in('n', 'N', 'no', 'No', 'NO', 'nO'):
-            location = input("Save to: ")
-            os.chdir(location)
-        while True:
-            sort_type = input("Sort by.. Numerical(n), Alphabetical(a), Date(d)..: ")
-            if sort_type in('n', 'N'):
-                start_num = int(input("Start #: "))
-                end_num = int(input("End #: "))
-                a = start_num
-                b = end_num + 1
-                if end_num <= 0:
-                    exit(1)
-                elif end_num == 1:
-                    touch.touch(file_name + "." + file_type)
-                    break
-                for i in trange(a, b):
-                    touch.touch(file_name + " " + "(" + str(i) + ")" + "." + file_type)
-                break
-            elif sort_type in('a', 'A'):
-                start_let = input("Start letter: ")
-                end_let = input("End letter: ")
-                a = ord(start_let)
-                b = ord(end_let) + 1
-                for i in trange(a, b):
-                    touch.touch(file_name + " " + "(" + chr(i) + ")" + "." + file_type)
-                break
-            elif sort_type in('d', 'D'):
-                year = datetime.now().year
+def run():
+    file_name = input("File name: ")
+    file_type = input("Save as type: ")
 
-                print("*************************************************************************")
-                print(calendar.calendar(year))
-                print("*************************************************************************")
+    if os.name == 'nt':
+        user_desktop = winshell.desktop()
+        os.chdir(user_desktop)
 
-                start = np.datetime64(input("Start date(YYYY-MM-DD): "))
-                end = np.datetime64(input("End   date(YYYY-MM-DD): "))
-                day = input("Days  Su|M|T|W|Th|F|Sa: ") 
+    cwd = os.getcwd()
+    response = input("Save to " + "'" + cwd + "'" + "? [Y/n]: ")
 
-                def monday():
-                    first_monday = np.busday_offset(start, 0, roll='forward', weekmask='Mon')
-                    last_monday = np.busday_offset(end, 0, roll='forward', weekmask='Mon')
-                    delta = np.busday_count(first_monday, last_monday, weekmask='Mon') 
+    if response in('n', 'N', 'no', 'No', 'NO', 'nO'):
+        save_path = input("Save to: ")
+        os.chdir(save_path)
 
-                    for i in trange(delta):
-                        touch.touch(file_name + " " + str(first_monday) + "." + file_type)
-                        first_monday += np.timedelta64(7, 'D')
+    while True:
+        print()
+        print("Create files in one of the following ways..")
+        print()
+        print("          *********************************************** ")
+        print("Options: | Numerical(n) | Alphabetical(a) | Date(d)      |")
+        print("         | ------------ | --------------- | ------------ |")
+        print("E.g.     | (0 - 'inf')  | (A - Z)         | (YYYY-MM-DD) |")
+        print("         |                                               |")
+        print("          *********************************************** ")
+        print()
+        option = input("Enter option: ")
 
-                if day in('m', 'M', 'Mon', 'mon', 'monday', 'Monday'):
-                    monday()
-                break
-            else:
-                print("'" + sort_type + "'", "is not a valid option.")
-        while True:
-            response = input("Create more files? [Y/n]: ")
-            if response in('n', 'N', 'no', 'No', 'NO', 'nO'):
-                exit(0)
-            else:
-                masstouch.create_files()
+        if option in('n', 'N', 'Numerical', 'numerical'):
+            start = int(input("Start with: "))
+            end = int(input("End with: "))
+
+            for i in trange(start, end + 1):
+                touch.touch(file_name + "(" + str(i) + ")" + "." + file_type)
+            break
+ 
+        if option in('a', 'A', 'Alphabetical', 'alphabetical'):
+            start = input("Start with: ")
+            end = input("End with: ")
+
+            for i in trange(ord(start), ord(end) + 1):
+                touch.touch(file_name + "(" + chr(i) + ")" + "." + file_type)
+            break
+
+        if option in('d', 'D', 'Date', 'date'):
+            year = datetime.now().year
+
+            print()
+            print("************************************************************************")
+            print(calendar.calendar(year))
+            print("************************************************************************")
+            print()
+
+            start = np.datetime64(input("Start with: "))
+            end = np.datetime64(input("End with: "))
+ 
+            print()
+            print("                *********************************************************** ")
+            print("               |          All Days           |         Mon, Wed, Fri       |")
+            print("               | --------------------------- | --------------------------- |")
+            print("Choose Day(s): | M | T | W | Th | F | Sa | S | M | T | W | Th | F | Sa | S |")
+            print("               | --------------------------- | --------------------------- |")
+            print("E.g.           | 1 | 1 | 1 | 1  | 1 | 1  | 1 | 1 | 0 | 1 | 0  | 1 | 0  | 0 |")
+            print("               |                                                           |")
+            print("                *********************************************************** ")
+            print()
+            mask = input("..: ")
+ 
+            first_day = np.busday_offset(start, 0, roll='forward', weekmask=mask)
+            last_day = np.busday_offset(end, 0, roll='preceding', weekmask=mask)
+            count = np.busday_count(first_day, last_day, weekmask=mask)
+ 
+            for i in trange(count + 1):
+                touch.touch(file_name + str(first_day) + "." + file_type)
+                first_day += np.timedelta64(7, 'D')
+            break
+
+        else:
+            print(option, "is not a valid option")
+
+    while True:
+        response = input("Create more files? [Y/n]: ")
+ 
+        if response in('n', 'N', 'No', 'no', 'NO', 'nO'):
+            exit(0)
+        else:
+            run()
 
 if __name__ == '__main__':
-    masstouch.create_files()
+    run()
