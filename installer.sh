@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# https://github.com/drebrb/masstouch
+
 red='\033[0;31m'
 green='\033[0;32m'
 no_color='\033[0m'
