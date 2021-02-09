@@ -17,11 +17,16 @@ def run():
     file_name = input("File name: ")
     file_type = input("Save as type: ")
 
-    response = input("Save to " + "'" + os.getcwd() + "'" + "? [Y/n]: ")
+    while True:
+        response = input("Save to " + "'" + os.getcwd() + "'" + "? [Y/n]: ")
 
-    if response in('n', 'N', 'no', 'No', 'NO', 'nO'):
-        save_path = input("Save to: ")
-        os.chdir(save_path)
+        if response in('', 'y', 'Y', 'yes', 'Yes', 'YES', 'YEs', 'YeS', 'yES', 'yeS', 'yEs'):
+            break
+
+        if response in('n', 'N', 'no', 'No', 'NO', 'nO'):
+            save_path = input("Save to: ")
+            os.chdir(save_path)
+            break
 
     print()
     print("Create files in one of the following ways..")
@@ -43,6 +48,7 @@ def run():
 
             for i in trange(start, end + 1):
                 touch.touch(file_name + "(" + str(i) + ")" + "." + file_type)
+
             break
  
         if option in('a', 'A', 'Alphabetical', 'alphabetical'):
@@ -51,6 +57,7 @@ def run():
 
             for i in trange(ord(start), ord(end) + 1):
                 touch.touch(file_name + "(" + chr(i) + ")" + "." + file_type)
+ 
             break
 
         if option in('d', 'D', 'Date', 'date'):
@@ -82,18 +89,17 @@ def run():
             for i in trange(count + 1):
                 touch.touch(file_name + str(first_day) + "." + file_type)
                 first_day += np.timedelta64(7, 'D')
+ 
             break
-
-        else:
-            print(option, "is not a valid option.")
 
     while True:
         response = input("Create more files? [Y/n]: ")
- 
+
+        if response in('', 'y', 'Y', 'yes', 'Yes', 'YES', 'YEs', 'YeS', 'yES', 'yeS', 'yEs'):
+            run()
+
         if response in('n', 'N', 'No', 'no', 'NO', 'nO'):
             exit(0)
-        else:
-            run()
 
 if __name__ == '__main__':
     run()
