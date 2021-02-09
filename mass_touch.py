@@ -88,9 +88,9 @@ def run():
             count = np.busday_count(first_day, last_day, weekmask=day)
  
             for i in trange(count + 1):
-                touch.touch(file_name + " " + str(first_day) + "." + file_type)
+                touch.touch(file_name + " " + datetime.strptime(str(first_day), '%Y-%m-%d').strftime('%m-%d-%Y') + "." + file_type)
                 first_day += np.timedelta64(7, 'D')
- 
+
             break
 
     while True:
