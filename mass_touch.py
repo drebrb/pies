@@ -85,7 +85,7 @@ def run():
             break
 
         else:
-            print(option, "is not a valid option")
+            print(option, "is not a valid option.")
 
     while True:
         response = input("Create more files? [Y/n]: ")
