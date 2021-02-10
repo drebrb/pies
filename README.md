@@ -1,7 +1,7 @@
 # TODO
 
 ## Optimize
-* Consolidate progress bars when multiple days are chosen in the date function.
+* Consolidate progress bars when multiple days are chosen for the date function.
 * Fix excel extension bug.
 
 ## GUI
