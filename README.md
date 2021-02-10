@@ -1,8 +1,8 @@
 # TODO
 
-## Funtions
-* User friendly file type menu.
+## Optimize
+* Consolidate progress bars when multiple days are chosen in the date function.
+* Fix excel extension bug.
 
-## Algos
-* Create an algorithm that prints the date in (MM-DD-YYYY) for any given day(s)
-that occurs between two dates.
+## GUI
+* Implement a GUI.
