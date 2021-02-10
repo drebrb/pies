@@ -25,7 +25,7 @@ def run():
     print("               ************************************ ")
     print("File types:   | Word(1) | Excel(2) | PowerPoint(3) |")
     print("              | ---------------------------------- |") 
-    print("              | Text(4) | Markdown(5) | HTML(6)    |")
+    print("              | Text(4) | HTML(5)  | Markdown(6)   |")
     print("              |                                    |")
     print("               ************************************ ")
     print()
@@ -134,14 +134,6 @@ def run():
             sun, mon, tue, wed, thu, fri, sat = map(int, input().split())
             
             print()    
-
-            sun_count = 0 
-            mon_count = 0 
-            tue_count = 0 
-            wed_count = 0 
-            thu_count = 0
-            fri_count = 0  
-            sat_count = 0
 
             if sun == 1:
                 first_sunday = np.busday_offset(start, 0, roll='forward', weekmask='Sun')
