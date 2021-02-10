@@ -50,11 +50,11 @@ def run():
             break
 
         if choice == "5":
-            file_type = "md"
+            file_type = "html"
             break
 
         if choice == "6":
-            file_type = "html"
+            file_type = "md"
             break
         
     print()
