@@ -3,32 +3,28 @@
 # https://github.com/drebrb/masstouch
 
 import os
-from tqdm import trange
+from tqdm import trange, tqdm
 import touch
-import calendar
 from datetime import datetime
+import calendar
 import numpy as np
 
 if os.name == 'nt':
     import winshell
     os.chdir(winshell.desktop())
 
-def run():
-    if os.name == 'nt':
-        os.system('cls')
-    else:
-        os.system('clear')
+print("Report bugs to 'https://github.com/drebrb/masstouch'.")
 
-    file_name = input("File name: ")
+def run():
+    file_name = input("\nFile name: ")
     
-    print()
-    print("               ************************************ ")
-    print("File types:   | Word(1) | Excel(2) | PowerPoint(3) |")
-    print("              | ---------------------------------- |") 
-    print("              | Text(4) | HTML(5)  | Markdown(6)   |")
-    print("              |                                    |")
-    print("               ************************************ ")
-    print()
+    print("""
++---------+----------+---------------+
+| Word(1) | Excel(2) | PowerPoint(3) |
++---------+----------+---------------+ 
+| Text(4) | HTML(5)  | Markdown(6)   |
++---------+----------+---------------+
+""")
 
     while True:
         choice = input("Save as type: ")
@@ -56,166 +52,95 @@ def run():
         if choice == "6":
             file_type = "md"
             break
-        
-    print()
 
     while True:
-        response = input("Save to " + "'" + os.getcwd() + "'" + "? [Y/n]: ")
+        response = input("\nSave to " + "'" + os.getcwd() + "'" + "? [Y/n]: ")
 
         if response in('', 'y', 'Y', 'yes', 'Yes', 'YES', 'YEs', 'YeS', 'yES', 'yeS', 'yEs'):
             break
 
         if response in('n', 'N', 'no', 'No', 'NO', 'nO'):
-            save_path = input("Save to: ")
+            save_path = input("\nSave to: ")
             os.chdir(save_path)
             break
 
-    print()
-    print("Create files in one of the following ways..")
-    print()
-    print("               *********************************************** ")
-    print("Options:      | Numerical(n) | Alphabetical(a) | Date(d)      |")
-    print("              | ------------ | --------------- | ------------ |")
-    print("E.g.          | (*int, *int) | (A, Z)          | (YYYY-MM-DD) |")
-    print("              |                                               |")
-    print("               *********************************************** ")
-    print()
+    print("""
+Create files in one of the following ways..
+
++--------------+-----------------+--------------+
+| Numerical(n) | Alphabetical(a) | Date(d)      |
++--------------+-----------------+--------------+
+| (*int, *int) | (A, Z)          | (YYYY-MM-DD) |
++--------------+-----------------+--------------+
+""")
 
     while True:
         option = input("Enter option: ")
 
         if option in('n', 'N', 'Numerical', 'numerical'):
-            print()
-            start = int(input("Start with: "))
-            end = int(input("End with  : ")) + 1
+            start, end = map(int, input("\nEnter numbers: ").split())
             print()
 
-            for i in trange(start, end, colour='green'):
+            for i in trange(start, end + 1, colour='green'):
                 touch.touch(file_name + " " + "(" + str(i) + ")" + "." + file_type)
-
-            print()
 
             break
  
         if option in('a', 'A', 'Alphabetical', 'alphabetical'):
-            print()
-            start = ord(input("Start with: "))
-            end = ord(input("End with  : ")) + 1
+            start, end = map(ord, input("\nEnter letters: ").split())
             print()
 
-            for i in trange(start, end, colour='green'):
+            for i in trange(start, end + 1, colour='green'):
                 touch.touch(file_name + " " + "(" + chr(i) + ")" + "." + file_type)
  
-            print()
-
             break
 
         if option in('d', 'D', 'Date', 'date'):
-            print()
-            print("************************************************************************")
+            print("""
+************************************************************************
+""")
             print(calendar.calendar(datetime.now().year))
-            print("************************************************************************")
+            print("""
+************************************************************************""")
+
+            print("""
++-----------------------+
+| Start      End        |
++-----------+-----------+
+| YYYY-MM-DD YYYY-MM-DD |
++-----------+-----------+
+""")
+
+            start, end = map(np.datetime64, input("Enter dates: ").split())
+
+            print("""
++---------+----------------------+
+| Days    | Mo Tu We Th Fr Sa Su |
+| On  = 1 |  1  1  1  1  1  1  1 |
+| Off = 0 |  0  0  0  0  0  0  0 |
++---------+----------------------+
+""")
+
+            day_input = (int(val) for val in input("Enter days : ").split())
+            NAMES = ('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun')
+
             print()
 
-            start = np.datetime64(input("Start with: "))
-            end = np.datetime64(input("End with  : "))
- 
-            print()
-            print("                *************************** ")
-            print("Choose Day(s)  |          All Days         |")
-            print("               | ------------------------- |")
-            print("E.g.           | S | M | T | W | T | F | S |")
-            print("               | ------------------------- |")
-            print("(1=On, 0=Off)  | 1 | 1 | 1 | 1 | 1 | 1 | 1 |")
-            print("               |                           |")
-            print("                *************************** ")
-            print("S M T W T F S")
+            for val, name in tqdm(zip(day_input, NAMES), position=0, desc='Total', colour='green', total=len(NAMES)):
+                if not val:
+                    continue
+                first = np.busday_offset(start, 0, roll='forward', weekmask=name)
+                last = np.busday_offset(end, 0, roll='preceding', weekmask=name)
+                count = np.busday_count(first, last, weekmask=name) + 1
 
-            sun, mon, tue, wed, thu, fri, sat = map(int, input().split())
-            
-            print()    
-
-            if sun == 1:
-                first_sunday = np.busday_offset(start, 0, roll='forward', weekmask='Sun')
-                last_sunday = np.busday_offset(end, 0, roll='preceding', weekmask='Sun')
-                sun_count = np.busday_count(first_sunday, last_sunday, weekmask='Sun') + 1
-                
-                for i in trange(sun_count, desc="Sun", colour='green'):
-                    touch.touch(file_name + " " + datetime.strptime(str(first_sunday), '%Y-%m-%d').strftime('%m-%d-%Y') + "." + file_type)
-                    first_sunday += np.timedelta64(7, 'D')
- 
-                print()
-
-            if mon == 1:
-                first_monday = np.busday_offset(start, 0, roll='forward', weekmask='Mon')
-                last_monday = np.busday_offset(end, 0, roll='preceding', weekmask='Mon')
-                mon_count = np.busday_count(first_monday, last_monday, weekmask='Mon') + 1
-                
-                for i in trange(mon_count, desc="Mon", colour='green'):
-                    touch.touch(file_name + " " + datetime.strptime(str(first_monday), '%Y-%m-%d').strftime('%m-%d-%Y') + "." + file_type)
-                    first_monday += np.timedelta64(7, 'D')
-
-                print()
-
-            if tue == 1:
-                first_tuesday = np.busday_offset(start, 0, roll='forward', weekmask='Tue')
-                last_tuesday = np.busday_offset(end, 0, roll='preceding', weekmask='Tue')
-                tue_count = np.busday_count(first_tuesday, last_tuesday, weekmask='Tue') + 1
-                
-                for i in trange(tue_count, desc="Tue", colour='green'):
-                    touch.touch(file_name + " " + datetime.strptime(str(first_tuesday), '%Y-%m-%d').strftime('%m-%d-%Y') + "." + file_type)
-                    first_tuesday += np.timedelta64(7, 'D')
-
-                print()
-
-            if wed == 1:
-                first_wednesday = np.busday_offset(start, 0, roll='forward', weekmask='Wed')
-                last_wednesday = np.busday_offset(end, 0, roll='preceding', weekmask='Wed')
-                wed_count = np.busday_count(first_wednesday, last_wednesday, weekmask='Wed') + 1
-                
-                for i in trange(wed_count, desc="Wed", colour='green'):
-                    touch.touch(file_name + " " + datetime.strptime(str(first_wednesday), '%Y-%m-%d').strftime('%m-%d-%Y') + "." + file_type)
-                    first_wednesday += np.timedelta64(7, 'D')
-
-                print()
-
-            if thu == 1:
-                first_thursday = np.busday_offset(start, 0, roll='forward', weekmask='Thu')
-                last_thursday = np.busday_offset(end, 0, roll='preceding', weekmask='Thu')
-                thu_count = np.busday_count(first_thursday, last_thursday, weekmask='Thu') + 1
-                
-                for i in trange(thu_count, desc="Thu", colour='green'):
-                    touch.touch(file_name + " " + datetime.strptime(str(first_thursday), '%Y-%m-%d').strftime('%m-%d-%Y') + "." + file_type)
-                    first_thursday += np.timedelta64(7, 'D')
- 
-                print()
-
-            if fri == 1:
-                first_friday = np.busday_offset(start, 0, roll='forward', weekmask='Fri')
-                last_friday = np.busday_offset(end, 0, roll='preceding', weekmask='Fri')
-                fri_count = np.busday_count(first_friday, last_friday, weekmask='Fri') + 1
-                
-                for i in trange(fri_count, desc="Fri", colour='green'):
-                    touch.touch(file_name + " " + datetime.strptime(str(first_friday), '%Y-%m-%d').strftime('%m-%d-%Y') + "." + file_type)
-                    first_friday += np.timedelta64(7, 'D')
-
-                print()
-
-            if sat == 1:
-                first_saturday = np.busday_offset(start, 0, roll='forward', weekmask='Sat')
-                last_saturday = np.busday_offset(end, 0, roll='preceding', weekmask='Sat')
-                sat_count = np.busday_count(first_saturday, last_saturday, weekmask='Sat') + 1
-                
-                for i in trange(sat_count, desc="Sat", colour='green'):
-                    touch.touch(file_name + " " + datetime.strptime(str(first_saturday), '%Y-%m-%d').strftime('%m-%d-%Y') + "." + file_type)
-                    first_saturday += np.timedelta64(7, 'D')
-            
-                print()
+                for i in trange(count, position=2, leave=False, desc=name, colour='blue'):
+                    touch.touch(str(first))
+                    first += np.timedelta64(7, 'D')
             
             break
 
     while True:
-        response = input("Create more files? [Y/n]: ")
+        response = input("\nCreate more files? [Y/n]: ")
 
         if response in('', 'y', 'Y', 'yes', 'Yes', 'YES', 'YEs', 'YeS', 'yES', 'yeS', 'yEs'):
             run()
