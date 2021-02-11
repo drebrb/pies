@@ -99,11 +99,11 @@ def run():
  
         if option in('a', 'A', 'Alphabetical', 'alphabetical'):
             print()
-            start = input("Start with: ")
-            end = input("End with  : ") + 1
+            start = ord(input("Start with: "))
+            end = ord(input("End with  : ")) + 1
             print()
 
-            for i in trange(ord(start), ord(end), colour='green'):
+            for i in trange(start, end, colour='green'):
                 touch.touch(file_name + " " + "(" + chr(i) + ")" + "." + file_type)
  
             print()
@@ -137,80 +137,80 @@ def run():
 
             if sun == 1:
                 first_sunday = np.busday_offset(start, 0, roll='forward', weekmask='Sun')
-                last_sunday = np.busday_offset(end, 0, roll='preceding', weekmask='Sun')
-                sun_count = np.busday_count(first_sunday, last_sunday, weekmask='Sun') + 1
+                last_sunday = np.busday_offset(end, 0, roll='forward', weekmask='Sun')
+                sun_count = np.busday_count(first_sunday, last_sunday, weekmask='Sun')
                 
                 for i in trange(sun_count, desc="Sun", colour='green'):
                     touch.touch(file_name + " " + datetime.strptime(str(first_sunday), '%Y-%m-%d').strftime('%m-%d-%Y') + "." + file_type)
                     first_sunday += np.timedelta64(7, 'D')
  
-            print()
+                print()
 
             if mon == 1:
                 first_monday = np.busday_offset(start, 0, roll='forward', weekmask='Mon')
-                last_monday = np.busday_offset(end, 0, roll='preceding', weekmask='Mon')
-                mon_count = np.busday_count(first_monday, last_monday, weekmask='Mon') + 1
+                last_monday = np.busday_offset(end, 0, roll='forward', weekmask='Mon')
+                mon_count = np.busday_count(first_monday, last_monday, weekmask='Mon')
                 
                 for i in trange(mon_count, desc="Mon", colour='green'):
                     touch.touch(file_name + " " + datetime.strptime(str(first_monday), '%Y-%m-%d').strftime('%m-%d-%Y') + "." + file_type)
                     first_monday += np.timedelta64(7, 'D')
 
-            print()
+                print()
 
             if tue == 1:
                 first_tuesday = np.busday_offset(start, 0, roll='forward', weekmask='Tue')
-                last_tuesday = np.busday_offset(end, 0, roll='preceding', weekmask='Tue')
-                tue_count = np.busday_count(first_tuesday, last_tuesday, weekmask='Tue') + 1
+                last_tuesday = np.busday_offset(end, 0, roll='forward', weekmask='Tue')
+                tue_count = np.busday_count(first_tuesday, last_tuesday, weekmask='Tue')
                 
                 for i in trange(tue_count, desc="Tue", colour='green'):
                     touch.touch(file_name + " " + datetime.strptime(str(first_tuesday), '%Y-%m-%d').strftime('%m-%d-%Y') + "." + file_type)
                     first_tuesday += np.timedelta64(7, 'D')
 
-            print()
+                print()
 
             if wed == 1:
                 first_wednesday = np.busday_offset(start, 0, roll='forward', weekmask='Wed')
-                last_wednesday = np.busday_offset(end, 0, roll='preceding', weekmask='Wed')
-                wed_count = np.busday_count(first_wednesday, last_wednesday, weekmask='Wed') + 1
+                last_wednesday = np.busday_offset(end, 0, roll='forward', weekmask='Wed')
+                wed_count = np.busday_count(first_wednesday, last_wednesday, weekmask='Wed')
                 
                 for i in trange(wed_count, desc="Wed", colour='green'):
                     touch.touch(file_name + " " + datetime.strptime(str(first_wednesday), '%Y-%m-%d').strftime('%m-%d-%Y') + "." + file_type)
                     first_wednesday += np.timedelta64(7, 'D')
 
-            print()
+                print()
 
             if thu == 1:
                 first_thursday = np.busday_offset(start, 0, roll='forward', weekmask='Thu')
-                last_thursday = np.busday_offset(end, 0, roll='preceding', weekmask='Thu')
-                thu_count = np.busday_count(first_thursday, last_thursday, weekmask='Thu') + 1
+                last_thursday = np.busday_offset(end, 0, roll='forward', weekmask='Thu')
+                thu_count = np.busday_count(first_thursday, last_thursday, weekmask='Thu')
                 
                 for i in trange(thu_count, desc="Thu", colour='green'):
                     touch.touch(file_name + " " + datetime.strptime(str(first_thursday), '%Y-%m-%d').strftime('%m-%d-%Y') + "." + file_type)
                     first_thursday += np.timedelta64(7, 'D')
  
-            print()
+                print()
 
             if fri == 1:
                 first_friday = np.busday_offset(start, 0, roll='forward', weekmask='Fri')
-                last_friday = np.busday_offset(end, 0, roll='preceding', weekmask='Fri')
-                fri_count = np.busday_count(first_friday, last_friday, weekmask='Fri') + 1
+                last_friday = np.busday_offset(end, 0, roll='forward', weekmask='Fri')
+                fri_count = np.busday_count(first_friday, last_friday, weekmask='Fri')
                 
                 for i in trange(fri_count, desc="Fri", colour='green'):
                     touch.touch(file_name + " " + datetime.strptime(str(first_friday), '%Y-%m-%d').strftime('%m-%d-%Y') + "." + file_type)
                     first_friday += np.timedelta64(7, 'D')
 
-            print()
+                print()
 
             if sat == 1:
                 first_saturday = np.busday_offset(start, 0, roll='forward', weekmask='Sat')
-                last_saturday = np.busday_offset(end, 0, roll='preceding', weekmask='Sat')
-                sat_count = np.busday_count(first_saturday, last_saturday, weekmask='Sat') + 1
+                last_saturday = np.busday_offset(end, 0, roll='forward', weekmask='Sat')
+                sat_count = np.busday_count(first_saturday, last_saturday, weekmask='Sat')
                 
                 for i in trange(sat_count, desc="Sat", colour='green'):
                     touch.touch(file_name + " " + datetime.strptime(str(first_saturday), '%Y-%m-%d').strftime('%m-%d-%Y') + "." + file_type)
                     first_saturday += np.timedelta64(7, 'D')
             
-            print()
+                print()
             
             break
 
