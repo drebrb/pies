@@ -26,7 +26,7 @@ Error() {
 install() {
     if [ -e /usr/local/bin ]
     then
-        if cp mass_touch.py /usr/local/bin
+        if cp masstouch_cli.py /usr/local/bin
         then
             Installation_Complete
             exit 0
@@ -50,7 +50,7 @@ install() {
 mkdir_install() {
     if mkdir -p /usr/local/bin
     then
-        if cp mass_touch,py /usr/local/bin
+        if cp masstouch_cli.py /usr/local/bin
         then
             Installation_Complete
             exit 0
