@@ -28,7 +28,7 @@ def run():
 
     while True:
         choice = input("Save as type: ")
-    
+
         if choice == "1":
             file_type = "docx"
             break
@@ -78,16 +78,16 @@ Create files in one of the following ways..
         option = input("Enter option: ")
 
         if option in('n', 'N', 'Numerical', 'numerical'):
-            start, end = map(int, input("\nEnter numbers: ").split())
+            start, end = map(int, input("\nEnter first and last #: ").split())
             print()
 
             for i in trange(start, end + 1, colour='green'):
-                touch.touch(file_name + " " + "(" + str(i) + ")" + "." + file_type)
+                touch.touch(file_name + "V" + str(i).zfill(2) + "." + file_type)
 
             break
  
         if option in('a', 'A', 'Alphabetical', 'alphabetical'):
-            start, end = map(ord, input("\nEnter letters: ").split())
+            start, end = map(ord, input("\nEnter First and last letter: ").split())
             print()
 
             for i in trange(start, end + 1, colour='green'):
