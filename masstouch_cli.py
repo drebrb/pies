@@ -82,7 +82,7 @@ Create files in one of the following ways..
             print()
 
             for i in trange(start, end + 1, colour='green'):
-                touch.touch(file_name + "V" + str(i).zfill(2) + "." + file_type)
+                touch.touch(file_name + "_V" + str(i).zfill(2) + "." + file_type)
 
             break
  
@@ -91,7 +91,7 @@ Create files in one of the following ways..
             print()
 
             for i in trange(start, end + 1, colour='green'):
-                touch.touch(file_name + " " + "(" + chr(i) + ")" + "." + file_type)
+                touch.touch(file_name + "_" + chr(i) + "." + file_type)
  
             break
 
@@ -126,16 +126,17 @@ Create files in one of the following ways..
 
             print()
 
-            for val, name in tqdm(zip(day_input, NAMES), position=0, desc='Total', colour='green', total=len(NAMES)):
+            for val, name in tqdm(zip(day_input, NAMES), position=2, colour='green', total=len(NAMES)):
                 if not val:
                     continue
                 first = np.busday_offset(start, 0, roll='forward', weekmask=name)
-                last = np.busday_offset(end, 0, roll='preceding', weekmask=name)
-                count = np.busday_count(first, last, weekmask=name) + 1
+                last = np.busday_offset(end, 1, roll='preceding', weekmask=name)
+                delta = np.timedelta64(7, 'D')
+                arange = np.arange(first, last, delta)
+                array = np.array(arange)
 
-                for i in trange(count, position=2, leave=False, desc=name, colour='blue'):
-                    touch.touch(str(first) + file_name + "." + file_type)
-                    first += np.timedelta64(7, 'D')
+                for a in tqdm((array), position=0, leave=False, desc=name, colour='blue'):
+                    touch.touch(str(a) + "_" + file_name + "." + file_type)
             
             break
 
