@@ -13,7 +13,7 @@ if os.name == 'nt':
     import winshell
     os.chdir(winshell.desktop())
 
-print("Report bugs to 'https://github.com/drebrb/masstouch'.")
+print("Report bugs to 'https://github.com/drebrb/masstouch'")
 
 def run():
     file_name = input("\nFile name: ")
