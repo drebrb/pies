@@ -4,7 +4,6 @@ from datetime import datetime
 import calendar
 import numpy as np
 from tqdm import tqdm
-import touch
 
 print("""
 ************************************************************************
