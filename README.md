@@ -1,8 +1,8 @@
 # TODO
 
-## Optimize
-* Consolidate progress bars when multiple days are chosen for the date function.
-* Fix excel extension bug.
+## Fix
+* Excel extension bug.
+* Main progress bar not displaying the correct value.
 
 ## GUI
 * Implement a GUI.
