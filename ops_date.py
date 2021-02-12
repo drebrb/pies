@@ -43,7 +43,7 @@ for val, name in tqdm(zip(day_input, NAMES), position=2, colour='green', total=l
     delta = np.timedelta64(7, 'D')
     arange = np.arange(first, last, delta)
     array = np.array(arange)
-    
+
     for a in tqdm((array), position=0, leave=False, desc=name, colour='blue'):
         pass
 
