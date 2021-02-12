@@ -35,16 +35,16 @@ days = ('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun')
 
 print()
 
-for val, name in tqdm(zip(day_input, days), position=2, colour='green', total=len(days)):
+for val, day in tqdm(zip(day_input, days), position=2, colour='green', total=len(days)):
     if not val:
         continue
-    first = np.busday_offset(start, 0, roll='forward', weekmask=name)
-    last = np.busday_offset(end, 1, roll='preceding', weekmask=name)
+    first = np.busday_offset(start, 0, roll='forward', weekmask=day)
+    last = np.busday_offset(end, 1, roll='preceding', weekmask=day)
     delta = np.timedelta64(7, 'D')
     arange = np.arange(first, last, delta)
     array = np.array(arange)
 
-    for a in tqdm((array), position=0, leave=False, desc=name, colour='blue'):
+    for a in tqdm((array), position=0, leave=False, desc=day, colour='blue'):
         pass
 
 print()
