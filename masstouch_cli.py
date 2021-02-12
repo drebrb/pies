@@ -134,7 +134,7 @@ Create files in one of the following ways..
                 count = np.busday_count(first, last, weekmask=name) + 1
 
                 for i in trange(count, position=2, leave=False, desc=name, colour='blue'):
-                    touch.touch(str(first))
+                    touch.touch(str(first) + file_name + "." + file_type)
                     first += np.timedelta64(7, 'D')
             
             break
