@@ -31,11 +31,11 @@ print("""
 """)
 
 day_input = (int(val) for val in input("Enter days : ").split())
-NAMES = ('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun')
+days = ('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun')
 
 print()
 
-for val, name in tqdm(zip(day_input, NAMES), position=2, colour='green', total=len(NAMES)):
+for val, name in tqdm(zip(day_input, days), position=2, colour='green', total=len(days)):
     if not val:
         continue
     first = np.busday_offset(start, 0, roll='forward', weekmask=name)
