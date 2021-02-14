@@ -135,7 +135,7 @@ Create files in one of the following ways..
                 arange = np.arange(first, last, delta)
                 array = np.array(arange)
 
-                for a in tqdm((array), position=0, leave=False, desc=day, colour='blue'):
+                for a in tqdm(array, position=0, leave=False, desc=day, colour='blue'):
                     touch.touch(str(a) + "_" + file_name + "." + file_type)
             
             break

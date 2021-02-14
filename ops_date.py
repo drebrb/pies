@@ -44,7 +44,7 @@ for val, day in tqdm(zip(day_input, days), position=2, colour='green', total=len
     arange = np.arange(first, last, delta)
     array = np.array(arange)
 
-    for a in tqdm((array), position=0, leave=False, desc=day, colour='blue'):
+    for a in tqdm(array, position=0, leave=False, desc=day, colour='blue'):
         pass
 
 print()
