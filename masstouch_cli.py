@@ -126,7 +126,7 @@ Create files in one of the following ways..
 
             print()
 
-            for day in tqdm((input_days), position=0, colour='green'):
+            for day in tqdm(input_days, position=0, colour='green'):
                 first = np.busday_offset(start, 0, roll='forward', weekmask=day)
                 last = np.busday_offset(end, 1, roll='preceding', weekmask=day)
                 delta = np.timedelta64(7, 'D')
