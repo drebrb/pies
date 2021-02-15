@@ -121,14 +121,12 @@ Create files in one of the following ways..
 +---------+----------------------+
 """)
 
-            day_input = (int(val) for val in input("Enter days : ").split())
             days = ('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun')
+            input_days = [x[0] for x in filter(lambda d: d[1] != 0, zip(days, (int(val) for val in input("Enter days : ").split())))]
 
             print()
 
-            for val, day in tqdm(zip(day_input, days), position=2, colour='green', total=len(days)):
-                if not val:
-                    continue
+            for day in tqdm(input_days, position=2, colour='green'):
                 first = np.busday_offset(start, 0, roll='forward', weekmask=day)
                 last = np.busday_offset(end, 1, roll='preceding', weekmask=day)
                 delta = np.timedelta64(7, 'D')
