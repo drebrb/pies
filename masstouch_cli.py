@@ -126,16 +126,16 @@ Create files in one of the following ways..
 
             print()
 
-            for day in tqdm(input_days, position=2, colour='green'):
+            for day in tqdm((input_days), position=0, colour='green'):
                 first = np.busday_offset(start, 0, roll='forward', weekmask=day)
                 last = np.busday_offset(end, 1, roll='preceding', weekmask=day)
                 delta = np.timedelta64(7, 'D')
                 arange = np.arange(first, last, delta)
                 array = np.array(arange)
-
-                for a in tqdm(array, position=0, leave=False, desc=day, colour='blue'):
+ 
+                for a in tqdm(array, position=2, leave=False, desc=day, colour='blue'):
                     touch.touch(str(a) + "_" + file_name + "." + file_type)
-            
+
             break
 
     while True:
