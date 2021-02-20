@@ -82,7 +82,7 @@ Create files in one of the following ways..
             print()
 
             for i in trange(start, end + 1, colour='green'):
-                touch.touch(file_name + "_V" + str(i).zfill(2) + "." + file_type)
+                touch.touch(file_name + str(i).zfill(2) + "." + file_type)
 
             break
  
@@ -91,7 +91,7 @@ Create files in one of the following ways..
             print()
 
             for i in trange(start, end + 1, colour='green'):
-                touch.touch(file_name + "_" + chr(i) + "." + file_type)
+                touch.touch(file_name + chr(i) + "." + file_type)
  
             break
 
@@ -134,7 +134,7 @@ Create files in one of the following ways..
                 array = np.array(arange)
  
                 for a in tqdm(array, position=2, leave=False, desc=day, colour='blue'):
-                    touch.touch(str(a) + "_" + file_name + "." + file_type)
+                    touch.touch(str(a) + file_name + "." + file_type)
 
             break
 
